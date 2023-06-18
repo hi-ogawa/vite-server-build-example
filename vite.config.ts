@@ -21,8 +21,6 @@ export default defineConfig((ctx) => ({
     sourcemap: true,
   },
   ssr: {
-    // need to externalize non ESM deps during dev
-    external: ctx.command === "build" ? [] : ["fast-xml-parser"],
     noExternal: true,
   },
   clearScreen: false,
