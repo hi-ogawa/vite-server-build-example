@@ -1,7 +1,7 @@
 # vite server build example
 
-Simple demo to use Vite for building both client and server.
-Note that this is not to demonstrate "server side rendering".
+Simple demo to use Vite for building both client and server. <br />
+Note that this does not demonstrate "server side rendering".
 
 ## summary
 
