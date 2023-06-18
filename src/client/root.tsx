@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import { trpcClient } from "../trpc/client";
-import { ReactQueryWrapper } from "./misc";
+import { ReactQueryWrapper, cls } from "./misc";
 
 export function Root() {
   return (
@@ -39,7 +39,10 @@ function Content() {
       <div className="w-full p-6">
         <div className="flex flex-col gap-4">
           <button
-            className="antd-btn antd-btn-primary p-1"
+            className={cls(
+              "antd-btn antd-btn-primary p-1",
+              debugMutation.isLoading && "antd-btn-loading"
+            )}
             onClick={() => debugMutation.mutate()}
           >
             Request
