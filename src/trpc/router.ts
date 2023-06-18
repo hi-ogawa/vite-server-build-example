@@ -1,9 +1,13 @@
 import { trpcProcedureBuilder, trpcRouterFactory } from "./factory";
 
 export const trpcRouter = trpcRouterFactory({
-  _debug: trpcProcedureBuilder.query(() => {
+  debug: trpcProcedureBuilder.query(({ ctx }) => {
+    const headers: [string, string][] = [];
+    ctx.req.headers.forEach((v, k) => headers.push([k, v]));
+
     return {
-      ok: true,
+      env: process.env,
+      headers,
     };
   }),
 });

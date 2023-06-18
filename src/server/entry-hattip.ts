@@ -49,7 +49,7 @@ function trpcHanlder(): RequestHandler {
         endpoint: TRPC_ENDPOINT,
         req: ctx.request,
         router: trpcRouter,
-        createContext: () => ({}),
+        createContext: (ctx) => ctx,
         onError: (e) => {
           console.error(e);
         },
