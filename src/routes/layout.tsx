@@ -1,6 +1,15 @@
 import { Outlet } from "react-router-dom";
+import { ReactQueryWrapper } from "../utils/react-router-utils";
 
 export function Page() {
+  return (
+    <ReactQueryWrapper>
+      <PageInner />
+    </ReactQueryWrapper>
+  );
+}
+
+function PageInner() {
   return (
     <div className="flex flex-col">
       <Header />

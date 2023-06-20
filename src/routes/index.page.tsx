@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
-import { cls } from "../client/misc";
 import { trpcClient } from "../trpc/client";
+import { cls } from "../utils/misc";
 
 export function Page() {
   const debugMutation = useMutation({

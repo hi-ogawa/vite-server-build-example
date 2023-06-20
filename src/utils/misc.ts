@@ -10,3 +10,7 @@ export function splitLast(s: string, sep: string): [string, string] {
   }
   return [s.slice(0, i), s.slice(i + sep.length)];
 }
+
+export function cls(...args: unknown[]): string {
+  return args.filter(Boolean).join(" ");
+}

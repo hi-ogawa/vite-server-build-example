@@ -2,9 +2,7 @@ import "virtual:uno.css";
 import { tinyassert } from "@hiogawa/utils";
 import React from "react";
 import { createRoot } from "react-dom/client";
-import { RouterProvider } from "react-router-dom";
-import { ReactQueryWrapper } from "./misc";
-import { createRouter } from "./page-routes";
+import { PageRoutes } from "./page-routes";
 
 function main() {
   const el = document.querySelector("#root");
@@ -16,16 +14,9 @@ function main() {
 function Root() {
   return (
     <React.StrictMode>
-      <ReactQueryWrapper>
-        <Router />
-      </ReactQueryWrapper>
+      <PageRoutes />
     </React.StrictMode>
   );
-}
-
-function Router() {
-  const [router] = React.useState(() => createRouter());
-  return <RouterProvider router={router} />;
 }
 
 main();

@@ -1,5 +1,10 @@
 import { mapRegExp, tinyassert } from "@hiogawa/utils";
-import { type RouteObject, createBrowserRouter } from "react-router-dom";
+import React from "react";
+import {
+  type RouteObject,
+  RouterProvider,
+  createBrowserRouter,
+} from "react-router-dom";
 import { normalizeGlobImport } from "../utils/glob-import-utils";
 import { intersection } from "../utils/misc";
 
@@ -8,7 +13,28 @@ import { intersection } from "../utils/misc";
 // TODO
 // - dynamic route (e.g. $id.tsx or [id].tsx)
 
-export function createRouter() {
+export function PageRoutes() {
+  const [router] = React.useState(() => createRouter());
+  return <RouterProvider router={router} />;
+}
+
+function createRouter() {
+  const pageModules = normalizeGlobImport(
+    import.meta.glob("../routes/**/*.page.(js|jsx|ts|tsx)", {
+      eager: true,
+    }),
+    "../routes",
+    ".page."
+  ) as Record<string, PageModule>;
+
+  const layoutModules = normalizeGlobImport(
+    import.meta.glob("../routes/**/layout.(js|jsx|ts|tsx)", {
+      eager: true,
+    }),
+    "../routes",
+    "layout."
+  ) as Record<string, PageModule>;
+
   tinyassert(
     intersection(Object.keys(pageModules), Object.keys(layoutModules))
       .length === 0
@@ -17,27 +43,6 @@ export function createRouter() {
     createRouteTree({ ...pageModules, ...layoutModules })
   );
 }
-
-//
-// vite glob import
-//
-
-// TODO: non-eager to code split?
-const pageModules = normalizeGlobImport(
-  import.meta.glob("../routes/**/*.page.(js|jsx|ts|tsx)", {
-    eager: true,
-  }),
-  "../routes",
-  ".page."
-) as Record<string, PageModule>;
-
-const layoutModules = normalizeGlobImport(
-  import.meta.glob("../routes/**/layout.(js|jsx|ts|tsx)", {
-    eager: true,
-  }),
-  "../routes",
-  "layout."
-) as Record<string, PageModule>;
 
 interface PageModule {
   // TODO: loader, handle, etc...?
