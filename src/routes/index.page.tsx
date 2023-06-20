@@ -2,8 +2,6 @@ import { useMutation } from "@tanstack/react-query";
 import { cls } from "../client/misc";
 import { trpcClient } from "../trpc/client";
 
-export { Layout } from "../components/layout";
-
 export function Page() {
   const debugMutation = useMutation({
     mutationFn: () => trpcClient.debug.query(),

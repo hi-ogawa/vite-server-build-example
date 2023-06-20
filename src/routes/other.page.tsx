@@ -1,5 +1,3 @@
-export { Layout } from "../components/layout";
-
 export function Page() {
   return (
     <div className="flex flex-col items-center">

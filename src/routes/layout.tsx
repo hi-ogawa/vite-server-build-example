@@ -1,8 +1,10 @@
-export function Layout(props: React.PropsWithChildren) {
+import { Outlet } from "react-router-dom";
+
+export function Page() {
   return (
     <div className="flex flex-col">
       <Header />
-      {props.children}
+      <Outlet />
     </div>
   );
 }

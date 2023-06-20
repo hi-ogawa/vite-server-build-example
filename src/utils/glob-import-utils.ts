@@ -1,4 +1,5 @@
 import { tinyassert } from "@hiogawa/utils";
+import { splitLast } from "./misc";
 
 export function normalizeGlobImport<T>(
   modules: Record<string, T>,
@@ -13,11 +14,6 @@ export function normalizeGlobImport<T>(
   );
 }
 
-function splitEnd(s: string, sep: string): string | undefined {
-  const i = s.lastIndexOf(sep);
-  return i !== -1 ? s.slice(0, i) : undefined;
-}
-
 function normalizeGlobModuleKey(
   key: string,
   prefix: string,
@@ -25,7 +21,6 @@ function normalizeGlobModuleKey(
 ) {
   tinyassert(key.startsWith(prefix));
   const key1 = key.slice(prefix.length);
-  const key2 = splitEnd(key1, preExtension);
-  tinyassert(typeof key2 === "string");
+  const [key2] = splitLast(key1, preExtension);
   return key2;
 }
