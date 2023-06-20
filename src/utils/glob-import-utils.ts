@@ -26,6 +26,6 @@ function normalizeGlobModuleKey(
   tinyassert(key.startsWith(prefix));
   const key1 = key.slice(prefix.length);
   const key2 = splitEnd(key1, preExtension);
-  tinyassert(key2);
+  tinyassert(typeof key2 === "string");
   return key2;
 }

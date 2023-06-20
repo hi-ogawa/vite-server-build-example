@@ -5,7 +5,6 @@ import { normalizeGlobImport } from "../utils/glob-import-utils";
 // rakkasjs-like page routes
 
 // TODO
-// - layout component
 // - dynamic route (e.g. $id.tsx or [id].tsx)
 // - borrow remix convention? https://remix.run/docs/en/main/pages/v2
 
@@ -20,9 +19,18 @@ export function createRouter() {
     tinyassert(v && typeof v === "object");
     tinyassert("Page" in v);
 
+    const Page = v.Page as any;
+    let element = <Page />;
+
+    // simple Layout support
+    if ("Layout" in v) {
+      const Layout = v.Layout as any;
+      element = <Layout>{element}</Layout>;
+    }
+
     return {
       path: k,
-      Component: v.Page as any,
+      element,
     } satisfies RouteObject;
   });
   return createBrowserRouter(routes);
