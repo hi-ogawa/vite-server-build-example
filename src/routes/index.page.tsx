@@ -1,16 +1,8 @@
 import { useMutation } from "@tanstack/react-query";
+import { cls } from "../client/misc";
 import { trpcClient } from "../trpc/client";
-import { ReactQueryWrapper, cls } from "./misc";
 
-export function Root() {
-  return (
-    <ReactQueryWrapper>
-      <RootInner />
-    </ReactQueryWrapper>
-  );
-}
-
-function RootInner() {
+export function Page() {
   return (
     <div className="flex flex-col">
       <header className="flex items-center p-2 px-4 gap-4 shadow-md shadow-black/[0.05] dark:shadow-black/[0.7] z-1">

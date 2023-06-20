@@ -1,5 +1,6 @@
 import { RequestHandler } from "@hattip/compose";
 import { tinyassert } from "@hiogawa/utils";
+import { splitEnd } from "../utils/misc";
 
 // rakkasjs-like api routes
 
@@ -25,11 +26,6 @@ const apiModules = import.meta.glob("../routes/**/*.api.(js|jsx|ts|tsx)", {
 const apiModuleMap = new Map(
   Object.entries(apiModules).map(([k, v]) => [normalizeModuleKey(k), v])
 );
-
-function splitEnd(s: string, sep: string): string | undefined {
-  const i = s.lastIndexOf(sep);
-  return i !== -1 ? s.slice(0, i) : undefined;
-}
 
 function normalizeModuleKey(key: string): string {
   const key1 = key.slice("../routes".length);
