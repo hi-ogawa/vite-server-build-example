@@ -6,9 +6,9 @@ import { apiRoutesHandler } from "./api-routes-handler";
 
 export function createHattipEntry() {
   return compose(
-    import.meta.env.DEV && devIndexHtmlHanlder(),
     trpcHanlder(),
-    apiRoutesHandler()
+    apiRoutesHandler(),
+    import.meta.env.DEV && devIndexHtmlHanlder()
   );
 }
 
@@ -28,18 +28,15 @@ function devIndexHtmlHanlder(): RequestHandler {
 <script type="module" src="/@vite/client"></script>
 `;
 
-  return async (ctx) => {
-    if (ctx.url.pathname === "/") {
-      const indexHtml = await import("../../index.html?raw");
-      const indexHtmlDev = indexHtml.default.replace(
-        "<!-- INJECT_DEV_VITE_CLIENT -->",
-        INJECT_DEV_VITE_CLIENT
-      );
-      return new Response(indexHtmlDev, {
-        headers: [["content-type", "text/html"]],
-      });
-    }
-    return ctx.next();
+  return async () => {
+    const indexHtml = await import("../../index.html?raw");
+    const indexHtmlDev = indexHtml.default.replace(
+      "<!-- INJECT_DEV_VITE_CLIENT -->",
+      INJECT_DEV_VITE_CLIENT
+    );
+    return new Response(indexHtmlDev, {
+      headers: [["content-type", "text/html"]],
+    });
   };
 }
 
