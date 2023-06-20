@@ -2,9 +2,14 @@ import { RequestHandler, compose } from "@hattip/compose";
 import { fetchRequestHandler } from "@trpc/server/adapters/fetch";
 import { TRPC_ENDPOINT } from "../trpc/common";
 import { trpcRouter } from "../trpc/router";
+import { apiRoutesHandler } from "./api-routes-handler";
 
 export function createHattipEntry() {
-  return compose(import.meta.env.DEV && devIndexHtmlHanlder(), trpcHanlder());
+  return compose(
+    import.meta.env.DEV && devIndexHtmlHanlder(),
+    trpcHanlder(),
+    apiRoutesHandler()
+  );
 }
 
 //
