@@ -15,7 +15,7 @@ describe(createReactRouterRoutes, () => {
       "/abc/[dynsub]": Module,
       "/abc/[dynsub]/new": Module,
     });
-    expect(tree).toMatchInlineSnapshot(`
+    expect(tree()).toMatchInlineSnapshot(`
       [
         {
           "Component": [Function],
