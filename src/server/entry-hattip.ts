@@ -5,19 +5,14 @@ import { trpcRouter } from "../trpc/router";
 import { apiRoutesHandler } from "./api-routes-handler";
 
 export function createHattipEntry() {
-  return compose(
-    import.meta.env.DEV && devIndexHtmlHanlder(),
-    trpcHanlder(),
-    apiRoutesHandler()
-  );
+  return compose(trpcHanlder(), apiRoutesHandler(), indexHtmlHanlder());
 }
 
 //
-// index.html for dev
+// handle index.html for SPA
 //
 
-function devIndexHtmlHanlder(): RequestHandler {
-  const INJECT_DEV_VITE_CLIENT = `
+const INJECT_DEV_VITE_CLIENT = `
 <script type="module">
   import RefreshRuntime from "/@react-refresh"
   RefreshRuntime.injectIntoGlobalHook(window)
@@ -28,18 +23,23 @@ function devIndexHtmlHanlder(): RequestHandler {
 <script type="module" src="/@vite/client"></script>
 `;
 
-  return async (ctx) => {
-    if (ctx.url.pathname === "/") {
-      const indexHtml = await import("../../index.html?raw");
-      const indexHtmlDev = indexHtml.default.replace(
+function indexHtmlHanlder(): RequestHandler {
+  return async () => {
+    // a bit scary but it seems to work because of dead code elination and two step build `vite build && vite build --ssr`
+    let html: string;
+    if (import.meta.env.DEV) {
+      let lib = await import("../../index.html?raw");
+      html = lib.default.replace(
         "<!-- INJECT_DEV_VITE_CLIENT -->",
         INJECT_DEV_VITE_CLIENT
       );
-      return new Response(indexHtmlDev, {
-        headers: [["content-type", "text/html"]],
-      });
+    } else {
+      const lib = await import("../../dist/client/index.html?raw");
+      html = lib.default;
     }
-    return ctx.next();
+    return new Response(html, {
+      headers: [["content-type", "text/html"]],
+    });
   };
 }
 
