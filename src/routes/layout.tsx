@@ -1,5 +1,5 @@
 import { NavLink, Outlet } from "react-router-dom";
-import { ReactQueryWrapper } from "../utils/react-router-utils";
+import { ReactQueryWrapper } from "../utils/react-query-utils";
 
 export function Page() {
   return (
