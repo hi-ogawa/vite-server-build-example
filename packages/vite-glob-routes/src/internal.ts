@@ -11,7 +11,11 @@ type ApiModule = Partial<
   Record<"get" | "post" | "put" | "delete", RequestHandler>
 >;
 
-export function createHattipHandler(
+export function createHattipHandler(apiModules: Record<string, ApiModule>) {
+  return () => createHattipHandlerInner(apiModules);
+}
+
+function createHattipHandlerInner(
   apiModules: Record<string, ApiModule>
 ): RequestHandler {
   return async (ctx) => {
@@ -37,6 +41,12 @@ type PageModule = {
 };
 
 export function createReactRouterRoutes(
+  pageModules: Record<string, PageModule>
+) {
+  return () => createReactRouterRoutesInner(pageModules);
+}
+
+function createReactRouterRoutesInner(
   pageModules: Record<string, PageModule>
 ): RouteObject[] {
   // start with simple tree

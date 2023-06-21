@@ -5,7 +5,7 @@ import { TRPC_ENDPOINT } from "../trpc/common";
 import { trpcRouter } from "../trpc/router";
 
 export function createHattipEntry() {
-  return compose(trpcHanlder(), globApiRoutes, indexHtmlHanlder());
+  return compose(trpcHanlder(), globApiRoutes(), indexHtmlHanlder());
 }
 
 //

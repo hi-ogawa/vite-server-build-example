@@ -13,7 +13,7 @@ function main() {
 }
 
 function Root() {
-  const [router] = React.useState(() => createBrowserRouter(globPageRoutes));
+  const [router] = React.useState(() => createBrowserRouter(globPageRoutes()));
   return (
     <React.StrictMode>
       <RouterProvider router={router} />
