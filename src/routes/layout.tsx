@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
 import { ReactQueryWrapper } from "../utils/react-router-utils";
 
 export function Page() {
@@ -22,6 +22,24 @@ function Header() {
   return (
     <header className="flex items-center p-2 px-4 gap-4 shadow-md shadow-black/[0.05] dark:shadow-black/[0.7] z-1">
       <div>Example</div>
+      <ul className="flex gap-2 text-sm font-mono">
+        <li className="flex">
+          <NavLink
+            className="border antd-menu-item aria-[current=page]:antd-menu-item-active px-2"
+            to="/"
+          >
+            /
+          </NavLink>
+        </li>
+        <li className="flex">
+          <NavLink
+            className="border antd-menu-item aria-[current=page]:antd-menu-item-active px-2"
+            to="/other"
+          >
+            /other
+          </NavLink>
+        </li>
+      </ul>
       <div className="flex-1"></div>
       <a
         className="antd-btn antd-btn-ghost i-ri-github-line w-5 h-5"
