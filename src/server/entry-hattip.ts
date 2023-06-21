@@ -28,13 +28,13 @@ function indexHtmlHanlder(): RequestHandler {
     // a bit scary but it seems to work because of dead code elination and two step build `vite build && vite build --ssr`
     let html: string;
     if (import.meta.env.DEV) {
-      let lib = await import("../../index.html?raw");
+      let lib = await import("/index.html?raw");
       html = lib.default.replace(
         "<!-- INJECT_DEV_VITE_CLIENT -->",
         INJECT_DEV_VITE_CLIENT
       );
     } else {
-      const lib = await import("../../dist/client/index.html?raw");
+      const lib = await import("/dist/client/index.html?raw");
       html = lib.default;
     }
     return new Response(html, {
