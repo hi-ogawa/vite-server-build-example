@@ -65,9 +65,13 @@ export function createRouteTree(record: Record<string, PageModule>) {
   }
 
   const tree = initNode();
-  for (const [k, v] of Object.entries(record)) {
+
+  const entries = Object.entries(record).map(
+    ([k, v]) => [splitPathSegment(k), v] as const
+  );
+  for (const [segments, v] of entries) {
     let node = tree;
-    for (const segment of splitPath(k)) {
+    for (const segment of segments) {
       node = node.children[segment] ??= initNode();
     }
     node.page = v;
@@ -98,11 +102,11 @@ export function createRouteTree(record: Record<string, PageModule>) {
 // "/" => ["/"]
 // "/xyz" => ["/", "xyz"]
 // "/abc/def" => ["/", "abc/", "def"]
-function splitPath(pathname: string): string[] {
+export function splitPathSegment(pathname: string): string[] {
   const result: string[] = [];
   mapRegExp(
     pathname,
-    /(.*\/)/g,
+    /([^/]*\/)/g,
     (match) => {
       tinyassert(1 in match);
       result.push(match[1]);

@@ -1,5 +1,5 @@
 {
-  "name": "@hiogawa/cloudflare-mailchannels-example",
+  "name": "@hiogawa/vite-server-build-example",
   "scripts": {
     "dev": "run-p dev:*",
     "dev:vite": "vite",

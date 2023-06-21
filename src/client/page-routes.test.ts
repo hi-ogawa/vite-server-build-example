@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { createRouteTree } from "./page-routes";
+import { createRouteTree, splitPathSegment } from "./page-routes";
 
 describe(createRouteTree, () => {
   it("basic", () => {
@@ -43,4 +43,28 @@ describe(createRouteTree, () => {
       ]
     `);
   });
+});
+
+describe(splitPathSegment, () => {
+  // prettier-ignore
+  it("basic", () => {
+    expect(splitPathSegment("/")).toMatchInlineSnapshot(`
+      [
+        "/",
+      ]
+    `);
+    expect(splitPathSegment("/xyz")).toMatchInlineSnapshot(`
+      [
+        "/",
+        "xyz",
+      ]
+    `);
+    expect(splitPathSegment("/abc/def")).toMatchInlineSnapshot(`
+      [
+        "/",
+        "abc/",
+        "def",
+      ]
+    `);
+  })
 });
