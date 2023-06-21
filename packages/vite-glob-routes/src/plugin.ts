@@ -1,17 +1,10 @@
 import type { Plugin } from "vite";
 
-// TODO: d.ts with "declar module"? something like this?
-/*
-declare module 'virtual:api-routes/hattip' {
-  const value: import("@hattip/compose").RequestHandler
-  export default value
-}
-*/
 const virtualPageRoutes = "virtual:page-routes/react-router";
 const virtualApiRoutes = "virtual:api-routes/hattip";
 
 export function viteGlobRoutes(options: { root: string }): Plugin[] {
-  // TODO: escape?
+  // TODO: should escape js string?
   const root = options.root;
   return [
     {
