@@ -1,0 +1,1 @@
+# vite-glob-routes plugin

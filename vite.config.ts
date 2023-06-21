@@ -1,3 +1,4 @@
+import { viteGlobRoutes } from "@hiogawa/vite-glob-routes";
 import vaviteConnect from "@vavite/connect";
 import react from "@vitejs/plugin-react";
 import unocss from "unocss/vite";
@@ -7,6 +8,7 @@ export default defineConfig((ctx) => ({
   plugins: [
     unocss(),
     react(),
+    viteGlobRoutes({ root: "/src/routes" }),
     vaviteConnect({
       standalone: false,
       serveClientAssetsInDev: true,
@@ -21,7 +23,7 @@ export default defineConfig((ctx) => ({
     sourcemap: true,
   },
   ssr: {
-    target: "webworker", // "node" doesn't bundle "xxx?raw"
+    target: "webworker", // "node" doesn't bundle "xxx?raw" import?
     noExternal: true,
   },
   clearScreen: false,
