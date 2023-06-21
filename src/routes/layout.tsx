@@ -23,22 +23,16 @@ function Header() {
     <header className="flex items-center p-2 px-4 gap-4 shadow-md shadow-black/[0.05] dark:shadow-black/[0.7] z-1">
       <div>Example</div>
       <ul className="flex gap-2 text-sm font-mono">
-        <li className="flex">
-          <NavLink
-            className="border antd-menu-item aria-[current=page]:antd-menu-item-active px-2"
-            to="/"
-          >
-            /
-          </NavLink>
-        </li>
-        <li className="flex">
-          <NavLink
-            className="border antd-menu-item aria-[current=page]:antd-menu-item-active px-2"
-            to="/other"
-          >
-            /other
-          </NavLink>
-        </li>
+        {ROUTES.map((href) => (
+          <li key={href} className="flex">
+            <NavLink
+              className="border antd-menu-item aria-[current=page]:antd-menu-item-active px-2"
+              to={href}
+            >
+              {href}
+            </NavLink>
+          </li>
+        ))}
       </ul>
       <div className="flex-1"></div>
       <a
@@ -49,3 +43,5 @@ function Header() {
     </header>
   );
 }
+
+const ROUTES = ["/", "/other", "/some-dynamic-id", "/subdir", "/subdir/other"];
