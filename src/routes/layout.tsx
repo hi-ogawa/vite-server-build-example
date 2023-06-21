@@ -28,6 +28,7 @@ function Header() {
             <NavLink
               className="border antd-menu-item aria-[current=page]:antd-menu-item-active px-2"
               to={href}
+              end
             >
               {href}
             </NavLink>
