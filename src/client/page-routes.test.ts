@@ -4,19 +4,16 @@ import { createRouteTree, splitPathSegment } from "./page-routes";
 describe(createRouteTree, () => {
   it("basic", () => {
     const Page = () => null;
+    const Module = { Page };
     const tree = createRouteTree({
-      "/index": {
-        Page,
-      },
-      "/other": {
-        Page,
-      },
-      "/[dynamic]": {
-        Page,
-      },
-      "/": {
-        Page,
-      },
+      "/": Module,
+      "/index": Module,
+      "/other": Module,
+      "/[dynamic]": Module,
+      "/subdir/index": Module,
+      "/subdir/other": Module,
+      "/abc/[dynsub]": Module,
+      "/abc/[dynsub]/new": Module,
     });
     expect(tree).toMatchInlineSnapshot(`
       [
@@ -36,6 +33,43 @@ describe(createRouteTree, () => {
               "Component": [Function],
               "children": [],
               "path": ":dynamic",
+            },
+            {
+              "Component": null,
+              "children": [
+                {
+                  "Component": [Function],
+                  "index": true,
+                },
+                {
+                  "Component": [Function],
+                  "children": [],
+                  "path": "other",
+                },
+              ],
+              "path": "subdir/",
+            },
+            {
+              "Component": null,
+              "children": [
+                {
+                  "Component": [Function],
+                  "children": [],
+                  "path": ":dynsub",
+                },
+                {
+                  "Component": null,
+                  "children": [
+                    {
+                      "Component": [Function],
+                      "children": [],
+                      "path": "new",
+                    },
+                  ],
+                  "path": "[dynsub]/",
+                },
+              ],
+              "path": "abc/",
             },
           ],
           "path": "/",
