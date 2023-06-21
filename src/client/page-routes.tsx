@@ -10,9 +10,6 @@ import { intersection } from "../utils/misc";
 
 // rakkasjs-like page/layout routes
 
-// TODO
-// - dynamic route (e.g. $id.tsx or [id].tsx)
-
 export function PageRoutes() {
   const [router] = React.useState(() => createRouter());
   return <RouterProvider router={router} />;
