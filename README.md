@@ -15,6 +15,7 @@ Note that this does not demonstrate "server side rendering".
 ```sh
 # development
 pnpm i
+pnpm build-deps
 pnpm dev
 
 # release

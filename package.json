@@ -6,6 +6,7 @@
     "build": "run-s build:*",
     "build:vite": "vite build && vite build --ssr",
     "build:vercel": "bash misc/vercel/build.sh",
+    "build-deps": "pnpm -C packages/vite-glob-routes build",
     "tsc": "tsc -b",
     "dev:tsc": "tsc -b --watch --preserveWatchOutput",
     "test": "vitest",

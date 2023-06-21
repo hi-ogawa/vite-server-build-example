@@ -21,6 +21,7 @@ export function viteGlobRoutes(options: { root: string }): Plugin[] {
           return `
             import { __viteGlobRoutesInternal } from "@hiogawa/vite-glob-routes";
 
+            // TODO: non-eager import to code split?
             let globPage = import.meta.glob("${root}/**/*.page.(js|jsx|ts|tsx)", { eager: true });
             globPage = __viteGlobRoutesInternal.mapKeys(globPage, k => k.slice("${root}".length).match(/^(.*)\.page\./)[1]);
 
