@@ -100,11 +100,13 @@ importers:
         version: 3.21.4
 
   packages/vite-glob-routes:
-    dependencies:
-      '@hattip/compose':
-        specifier: '*'
-        version: 0.0.34
     devDependencies:
+      '@hattip/compose':
+        specifier: ^0.0.34
+        version: 0.0.34
+      react-router:
+        specifier: ^6.13.0
+        version: 6.13.0(react@18.2.0)
       vite:
         specifier: ^4.3.9
         version: 4.3.9(@types/node@18.16.18)
@@ -763,9 +765,11 @@ packages:
     resolution: {integrity: sha512-faW5gIvyDmut3/lUWslHitH2+rrtkM9IQvBOmdTjS7r9vaADVh2t/M+MgitTzsSavfQUbP+uCbTPQ+ffrUhceA==}
     dependencies:
       '@hattip/core': 0.0.34
+    dev: true
 
   /@hattip/core@0.0.34:
     resolution: {integrity: sha512-L9MRB5fVgW8vd2wKDbD1pIhsM4UloRCdsXn3x9us2Xp1jeynS83T3gHGLdUvPclgGvQZapwBgUkkn9paS+bjDg==}
+    dev: true
 
   /@hattip/polyfills@0.0.34:
     resolution: {integrity: sha512-zD0BemBQ4iqwKyX0jNu7YTSZtG4zH7sOB3XIBa5FkxRHZEjEc1dtKHsQpWhNqZW9+h5c8TWS9EiTMstqbtL2SQ==}

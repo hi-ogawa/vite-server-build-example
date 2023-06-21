@@ -1,11 +1,11 @@
 import { describe, expect, it } from "vitest";
-import { createRouteTree, splitPathSegment } from "./page-routes";
+import { createReactRouterRoutes, splitPathSegment } from "./internal";
 
-describe(createRouteTree, () => {
+describe(createReactRouterRoutes, () => {
   it("basic", () => {
     const Page = () => null;
     const Module = { Page };
-    const tree = createRouteTree({
+    const tree = createReactRouterRoutes({
       "/": Module,
       "/index": Module,
       "/other": Module,

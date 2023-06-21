@@ -23,10 +23,13 @@
     "build": "tsup"
   },
   "devDependencies": {
+    "@hattip/compose": "^0.0.34",
+    "react-router": "^6.13.0",
     "vite": "^4.3.9"
   },
   "peerDependencies": {
     "@hattip/compose": "*",
+    "react-router": "*",
     "vite": "*"
   }
 }

@@ -1,8 +1,9 @@
 import "virtual:uno.css";
+import globPageRoutes from "virtual:page-routes/react-router";
 import { tinyassert } from "@hiogawa/utils";
 import React from "react";
 import { createRoot } from "react-dom/client";
-import { PageRoutes } from "./page-routes";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
 function main() {
   const el = document.querySelector("#root");
@@ -12,9 +13,10 @@ function main() {
 }
 
 function Root() {
+  const [router] = React.useState(() => createBrowserRouter(globPageRoutes));
   return (
     <React.StrictMode>
-      <PageRoutes />
+      <RouterProvider router={router} />
     </React.StrictMode>
   );
 }
