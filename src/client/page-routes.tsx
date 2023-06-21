@@ -53,7 +53,7 @@ interface PageModule {
 // react router utils
 //
 
-function createRouteTree(record: Record<string, PageModule>) {
+export function createRouteTree(record: Record<string, PageModule>) {
   // start with simple tree
   interface TreeNode {
     page?: PageModule;
@@ -74,6 +74,7 @@ function createRouteTree(record: Record<string, PageModule>) {
   }
 
   // convert to react-router tree
+  // TODO: does children order matters for dynamic path resolution?
   function recurse(children: Record<string, TreeNode>): RouteObject[] {
     return Object.entries(children).map(([path, node]) => {
       const index = path === "index";
@@ -85,7 +86,7 @@ function createRouteTree(record: Record<string, PageModule>) {
             Component,
           }
         : {
-            path,
+            path: formatPath(path),
             Component,
             children,
           };
@@ -97,7 +98,7 @@ function createRouteTree(record: Record<string, PageModule>) {
 // "/" => ["/"]
 // "/xyz" => ["/", "xyz"]
 // "/abc/def" => ["/", "abc/", "def"]
-function splitPath(pathname: string) {
+function splitPath(pathname: string): string[] {
   const result: string[] = [];
   mapRegExp(
     pathname,
@@ -111,4 +112,13 @@ function splitPath(pathname: string) {
     }
   );
   return result;
+}
+
+// "[dynamic]" => ":dynamic"
+function formatPath(s: string): string {
+  const m = s.match(/^\[(.*)\]$/);
+  if (m) {
+    return ":" + m[1];
+  }
+  return s;
 }
