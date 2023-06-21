@@ -10,10 +10,14 @@
       "import": "./dist/index.js",
       "require": "./dist/index.cjs",
       "types": "./dist/index.d.ts"
+    },
+    "./types/virtual": {
+      "types": "./types/virtual.d.ts"
     }
   },
   "files": [
-    "dist"
+    "dist",
+    "types"
   ],
   "scripts": {
     "build": "tsup"
@@ -22,6 +26,7 @@
     "vite": "^4.3.9"
   },
   "peerDependencies": {
+    "@hattip/compose": "*",
     "vite": "*"
   }
 }

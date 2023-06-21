@@ -1,4 +1,3 @@
-// @ts-expect-error viteGlobRoutes plugin
 import apiRoutesHattip from "virtual:api-routes/hattip";
 import { RequestHandler, compose } from "@hattip/compose";
 import { fetchRequestHandler } from "@trpc/server/adapters/fetch";

@@ -1,1 +1,5 @@
-# vite-glob-routes plugin
+# vite-glob-routes
+
+```sh
+pnpm build
+```
