@@ -8,12 +8,12 @@ export function createHattipEntry() {
   return compose(
     trpcHanlder(),
     apiRoutesHandler(),
-    import.meta.env.DEV && devIndexHtmlHanlder()
+    import.meta.env.DEV ? devIndexHtmlHanlder() : indexHtmlHanlder()
   );
 }
 
 //
-// index.html for dev
+// handle index.html for SPA
 //
 
 function devIndexHtmlHanlder(): RequestHandler {
@@ -35,6 +35,16 @@ function devIndexHtmlHanlder(): RequestHandler {
       INJECT_DEV_VITE_CLIENT
     );
     return new Response(indexHtmlDev, {
+      headers: [["content-type", "text/html"]],
+    });
+  };
+}
+
+function indexHtmlHanlder(): RequestHandler {
+  return async () => {
+    // this works because we build in two steps `vite build && vite build --ssr`
+    const indexHtml = await import("../../dist/client/index.html?raw");
+    return new Response(indexHtml.default, {
       headers: [["content-type", "text/html"]],
     });
   };

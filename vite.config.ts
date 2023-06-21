@@ -21,6 +21,7 @@ export default defineConfig((ctx) => ({
     sourcemap: true,
   },
   ssr: {
+    target: "webworker", // "node" doesn't bundle "xxx?raw"
     noExternal: true,
   },
   clearScreen: false,

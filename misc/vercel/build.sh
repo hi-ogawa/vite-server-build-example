@@ -24,5 +24,5 @@ cp misc/vercel/config.json .vercel/output/config.json
 cp -r dist/client .vercel/output/static
 
 # serverless
-cp dist/server/index.mjs .vercel/output/functions/index.func/index.js
+cp dist/server/index.js .vercel/output/functions/index.func/index.js
 cp misc/vercel/.vc-config.json .vercel/output/functions/index.func/.vc-config.json
