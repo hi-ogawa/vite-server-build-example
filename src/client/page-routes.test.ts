@@ -66,7 +66,7 @@ describe(createRouteTree, () => {
                       "path": "new",
                     },
                   ],
-                  "path": "[dynsub]/",
+                  "path": ":dynsub/",
                 },
               ],
               "path": "abc/",

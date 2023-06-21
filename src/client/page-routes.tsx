@@ -119,10 +119,11 @@ export function splitPathSegment(pathname: string): string[] {
 }
 
 // "[dynamic]" => ":dynamic"
+// "[dynamicdir]/" => ":dynamicdir/"
 function formatPath(s: string): string {
-  const m = s.match(/^\[(.*)\]$/);
+  const m = s.match(/^\[(.*)\](\/?)$/);
   if (m) {
-    return ":" + m[1];
+    return ":" + m[1] + (m[2] ?? "");
   }
   return s;
 }
