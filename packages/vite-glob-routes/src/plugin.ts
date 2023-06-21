@@ -1,8 +1,7 @@
 import type { Plugin } from "vite";
 
-// TODO: prefix "glob-" like "glob-page-routes" and "glob-api-routes"?
-const virtualPageRoutes = "virtual:page-routes/react-router";
-const virtualApiRoutes = "virtual:api-routes/hattip";
+const virtualPageRoutes = "virtual:glob-page-routes/react-router";
+const virtualApiRoutes = "virtual:glob-api-routes/hattip";
 
 export function viteGlobRoutes(options: { root: string }): Plugin[] {
   // TODO: should escape js string?

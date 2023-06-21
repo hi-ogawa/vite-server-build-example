@@ -1,4 +1,4 @@
-import globApiRoutes from "virtual:api-routes/hattip";
+import globApiRoutes from "virtual:glob-api-routes/hattip";
 import { RequestHandler, compose } from "@hattip/compose";
 import { fetchRequestHandler } from "@trpc/server/adapters/fetch";
 import { TRPC_ENDPOINT } from "../trpc/common";
