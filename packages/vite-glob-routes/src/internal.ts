@@ -4,7 +4,7 @@ import type React from "react";
 import type { RouteObject } from "react-router";
 
 //
-// rakkasjs-like api routes
+// rakkasjs-like api routes for hattip
 //
 
 type ApiModule = Partial<
@@ -33,7 +33,7 @@ function createHattipHandlerInner(
 }
 
 //
-// rakkasjs-like page/layout routes by react-router
+// rakkasjs-like page/layout routes for react-router
 //
 
 type PageModule = {
