@@ -49,35 +49,21 @@ export function createReactRouterRoutes(
 function createReactRouterRoutesInner(
   pageModules: Record<string, PageModule>
 ): RouteObject[] {
-  // start with simple tree
-  interface TreeNode {
-    page?: PageModule;
-    children: Record<string, TreeNode>;
-  }
+  // construct generate tree structure
+  const pathEntries = Object.entries(pageModules).map(([k, v]) => ({
+    keys: splitPathSegment(k),
+    value: v,
+  }));
+  const tree = createTree(pathEntries);
 
-  function initNode(): TreeNode {
-    return { children: {} };
-  }
-
-  const tree = initNode();
-
-  const entries = Object.entries(pageModules).map(
-    ([k, v]) => [splitPathSegment(k), v] as const
-  );
-  for (const [segments, v] of entries) {
-    let node = tree;
-    for (const segment of segments) {
-      node = node.children[segment] ??= initNode();
-    }
-    node.page = v;
-  }
-
-  // convert to react-router's nested RouteObject array
-  function recurse(children: Record<string, TreeNode>): RouteObject[] {
+  // transform to react-router's nested RouteObject array
+  function recurse(
+    children: Record<string, TreeNode<PageModule>>
+  ): RouteObject[] {
     return Object.entries(children).map(([path, node]) => {
       const index = path === "index";
-      const Component = node.page?.Page ?? null;
-      const children = recurse(node.children);
+      const Component = node.value?.Page ?? null;
+      const children = recurse(node.children ?? {});
       return index
         ? {
             index,
@@ -90,12 +76,35 @@ function createReactRouterRoutesInner(
           };
     });
   }
-  return recurse(tree.children);
+  return recurse(tree.children ?? {});
 }
 
 //
 // utils
 //
+
+type TreeNode<T> = {
+  value?: T;
+  children?: Record<string, TreeNode<T>>;
+};
+
+function initNode<T>(): TreeNode<T> {
+  return {};
+}
+
+function createTree<T>(entries: { value: T; keys: string[] }[]): TreeNode<T> {
+  const root = initNode<T>();
+
+  for (const e of entries) {
+    let node = root;
+    for (const key of e.keys) {
+      node = (node.children ??= {})[key] ??= initNode();
+    }
+    node.value = e.value;
+  }
+
+  return root;
+}
 
 // "/" => ["/"]
 // "/xyz" => ["/", "xyz"]
