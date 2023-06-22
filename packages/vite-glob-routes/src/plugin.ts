@@ -37,6 +37,7 @@ export function viteGlobRoutes(options: { root: string }): Plugin[] {
           return `
             import { __viteGlobRoutesInternal } from "@hiogawa/vite-glob-routes";
 
+            // TODO: import only "get/post/put/delete" to tree shake other exports?
             let globApi = import.meta.glob("${root}/**/*.api.(js|jsx|ts|tsx)", { eager: true });
             globApi = __viteGlobRoutesInternal.mapKeys(globApi, k => k.slice("${root}".length).match(/^(.*)\.api\./)[1]);
 
