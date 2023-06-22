@@ -23,7 +23,11 @@ function indexHtmlHanlder(): RequestHandler {
     let html: string = documentImport.render();
 
     // inject assets
-    // https://github.com/hi-ogawa/vite/blob/2c38bae9458794d42eebd7f7351f5633e2fe8247/packages/vite/src/node/plugins/html.ts#L1037-L1044
+    // https://github.com/vitejs/vite/blob/2c38bae9458794d42eebd7f7351f5633e2fe8247/packages/vite/src/node/plugins/html.ts#L1037-L1044
+
+    // TODO: can we borrow this logic directly?
+    // https://github.com/vitejs/vite/blob/168e1fc7471c202e5012e61562b5058e549df104/packages/vite/src/node/server/middlewares/indexHtml.ts#L51
+    // https://github.com/vitejs/vite-plugin-react/blob/deb40a45f8c296ca2ae4e27c7709bec5ae5b9a62/packages/plugin-react/src/index.ts#L268
 
     // dev script
     if (import.meta.env.DEV) {
