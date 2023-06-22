@@ -4,7 +4,6 @@ import { tinyassert } from "@hiogawa/utils";
 import { fetchRequestHandler } from "@trpc/server/adapters/fetch";
 import { TRPC_ENDPOINT } from "../trpc/common";
 import { trpcRouter } from "../trpc/router";
-import { render } from "./document";
 
 export function createHattipEntry() {
   return compose(trpcHanlder(), globApiRoutes(), indexHtmlHanlder());
@@ -14,14 +13,14 @@ export function createHattipEntry() {
 // handle index.html for SPA
 //
 
+// TODO: make vite plugin
 function indexHtmlHanlder(): RequestHandler {
-  // user option
-  const clientEntry = "/src/client/index.tsx";
-  const documentEntry = "/src/server/document.tsx";
-  documentEntry;
-
   return async () => {
-    let html = render();
+    // @ts-ignore
+    const documentImport = await import("/src/server/document.tsx");
+    const clientEntry = "/src/client/index.tsx";
+
+    let html: string = documentImport.render();
 
     // inject assets
     // https://github.com/hi-ogawa/vite/blob/2c38bae9458794d42eebd7f7351f5633e2fe8247/packages/vite/src/node/plugins/html.ts#L1037-L1044
