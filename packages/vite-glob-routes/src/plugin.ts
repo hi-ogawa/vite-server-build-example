@@ -18,7 +18,7 @@ export function viteGlobRoutes(options: { root: string }): Plugin[] {
       },
       load(id, _options) {
         // NOTE
-        // instead of completely relying on vite's glob import, we could also manually probe files and setup wather etc...
+        // instead of completely relying on vite's glob import, we could also manually probe files and setup watcher etc...
         // cf. https://github.com/rakkasjs/rakkasjs/blob/18ba680d18f776acf2dedd44444873433552f4e3/packages/rakkasjs/src/features/api-routes/vite-plugin.ts#L8
 
         if (id === virtualPageRoutes) {

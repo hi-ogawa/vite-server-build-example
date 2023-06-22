@@ -19,6 +19,12 @@ export default defineConfig((ctx) => ({
     }),
   ],
   build: {
+    rollupOptions: {
+      input: {
+        index: "/src/client/index.tsx",
+      },
+    },
+    manifest: !ctx.ssrBuild,
     outDir: ctx.ssrBuild ? "dist/server" : "dist/client",
     sourcemap: true,
   },
