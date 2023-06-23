@@ -28,9 +28,5 @@ export default defineConfig((ctx) => ({
     outDir: ctx.ssrBuild ? "dist/server" : "dist/client",
     sourcemap: true,
   },
-  ssr: {
-    target: "webworker", // "node" doesn't bundle "xxx?raw" import?
-    noExternal: true,
-  },
   clearScreen: false,
 }));
