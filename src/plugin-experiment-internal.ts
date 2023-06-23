@@ -45,6 +45,7 @@ export function createDocumentMiddleware(options: {
 // TODO: ideally we could grab injection from registered "html transform" plugins?
 // https://github.com/vitejs/vite/blob/168e1fc7471c202e5012e61562b5058e549df104/packages/vite/src/node/server/middlewares/indexHtml.ts#L51
 // https://github.com/vitejs/vite-plugin-react/blob/deb40a45f8c296ca2ae4e27c7709bec5ae5b9a62/packages/plugin-react/src/index.ts#L268
+// TODO: or this is so genius https://github.com/brillout/vite-plugin-ssr/blob/906bd4d0cba2c4eff519ef5622f0dc10128b484a/vite-plugin-ssr/node/runtime/html/injectAssets/getViteDevScripts.ts#L16
 const DEV_SCRIPT = `\
 <script type="module">
   import RefreshRuntime from "/@react-refresh"
