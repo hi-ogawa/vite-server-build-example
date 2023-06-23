@@ -1,5 +1,4 @@
 import globApiRoutes from "virtual:glob-api-routes/hattip";
-// @ts-ignore
 import indexHtmlMiddleware from "virtual:index-html-middleware/hattip";
 import { RequestHandler, compose } from "@hattip/compose";
 import { fetchRequestHandler } from "@trpc/server/adapters/fetch";

@@ -1,9 +1,9 @@
 import type { Plugin } from "vite";
 
-const virtualPageRoutes = "virtual:glob-page-routes/react-router";
-const virtualApiRoutes = "virtual:glob-api-routes/hattip";
-
 export function viteGlobRoutes(options: { root: string }): Plugin[] {
+  const virtualPageRoutes = "virtual:glob-page-routes/react-router";
+  const virtualApiRoutes = "virtual:glob-api-routes/hattip";
+
   // TODO: should escape js string?
   const root = options.root;
   return [
@@ -52,4 +52,41 @@ export function viteGlobRoutes(options: { root: string }): Plugin[] {
       },
     },
   ];
+}
+
+export function indexHtmlMiddlewarePlugin(): Plugin {
+  const virtualId = "virtual:index-html-middleware/hattip";
+  const globalViteDevServerKey =
+    "__indexHtmlMiddlewarePlugin_globalViteDevServerKey";
+
+  return {
+    name: indexHtmlMiddlewarePlugin.name,
+
+    // expose dev server to access "transformIndexHtml"
+    // https://github.com/cyco130/vavite/blob/913e066fd557a1720923361db77c195ac237ac26/packages/expose-vite-dev-server/src/index.ts
+    // https://github.com/brillout/vite-plugin-ssr/blob/906bd4d0cba2c4eff519ef5622f0dc10128b484a/vite-plugin-ssr/node/runtime/html/injectAssets/getViteDevScripts.ts#L16
+    configureServer: (server) => {
+      (globalThis as any)[globalViteDevServerKey] = server;
+    },
+
+    async resolveId(source, _importer, _options) {
+      if (source === virtualId) {
+        return source;
+      }
+      return;
+    },
+
+    load(id, _options) {
+      if (id === virtualId) {
+        return `
+          import { __internalIndexHtmlMiddleware } from "@hiogawa/vite-glob-routes";
+          export default __internalIndexHtmlMiddleware.createIndexHtmlMiddleware({
+            server: globalThis[${JSON.stringify(globalViteDevServerKey)}],
+            importIndexHtml: () => (import.meta.env.DEV ? import("/index.html?raw") : import("/dist/client/index.html?raw")),
+          });
+        `;
+      }
+      return;
+    },
+  };
 }

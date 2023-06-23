@@ -38,5 +38,13 @@
     "@hattip/compose": "*",
     "react-router": "*",
     "vite": "*"
+  },
+  "peerDependenciesMeta": {
+    "@hattip/compose": {
+      "optional": true
+    },
+    "react-router": {
+      "optional": true
+    }
   }
 }
