@@ -11,10 +11,7 @@ export default defineConfig((ctx) => ({
     unocss(),
     react(),
     viteGlobRoutes({ root: "/src/routes" }),
-    documentMiddlewarePlugin({
-      clientEntry: "/src/client/index.tsx",
-      documentEntry: "/src/server/document.tsx",
-    }),
+    indexHtmlMiddlewarePlugin(),
     vaviteConnect({
       standalone: false,
       serveClientAssetsInDev: true,
@@ -31,43 +28,35 @@ export default defineConfig((ctx) => ({
   clearScreen: false,
 }));
 
-function documentMiddlewarePlugin(options: {
-  clientEntry: string;
-  documentEntry: string;
-}): Plugin {
-  const virtualDocumentHattip = "virtual:document-middleware/hattip";
+// TOOD: package
+function indexHtmlMiddlewarePlugin(): Plugin {
+  const virtualId = "virtual:index-html-middleware/hattip";
+  const globalViteDevServerKey =
+    "__indexHtmlMiddlewarePlugin_globalViteDevServerKey";
 
   return {
-    name: documentMiddlewarePlugin.name,
+    name: indexHtmlMiddlewarePlugin.name,
 
-    config(config, _env) {
-      if (!config.build?.ssr) {
-        return {
-          build: {
-            manifest: true,
-            rollupOptions: {
-              input: [options.clientEntry],
-            },
-          },
-        };
-      }
+    // expose dev server to access "transformIndexHtml"
+    // https://github.com/cyco130/vavite/blob/913e066fd557a1720923361db77c195ac237ac26/packages/expose-vite-dev-server/src/index.ts
+    // https://github.com/brillout/vite-plugin-ssr/blob/906bd4d0cba2c4eff519ef5622f0dc10128b484a/vite-plugin-ssr/node/runtime/html/injectAssets/getViteDevScripts.ts#L16
+    configureServer: (server) => {
+      globalThis[globalViteDevServerKey] = server;
     },
 
     async resolveId(source, _importer, _options) {
-      if (source === virtualDocumentHattip) {
+      if (source === virtualId) {
         return source;
       }
       return;
     },
 
     load(id, _options) {
-      if (id === virtualDocumentHattip) {
+      if (id === virtualId) {
         return `
-          import { createDocumentHandler } from "/src/plugin-experiment-internal";
-          import { render } from "${options.documentEntry}";
-          export default () => createDocumentHandler({
-            clientEntry: ${JSON.stringify(options.clientEntry)},
-            render,
+          import { createIndexHtmlMiddleware } from "/src/plugin-experiment-internal";
+          export default createIndexHtmlMiddleware({
+            server: globalThis[${JSON.stringify(globalViteDevServerKey)}]
           });
         `;
       }
