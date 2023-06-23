@@ -82,6 +82,7 @@ export function indexHtmlMiddlewarePlugin(): Plugin {
           import { __internalIndexHtmlMiddleware } from "@hiogawa/vite-glob-routes";
           export default __internalIndexHtmlMiddleware.createIndexHtmlMiddleware({
             server: globalThis[${JSON.stringify(globalViteDevServerKey)}],
+            // TODO: configurable index.html entry?
             importIndexHtml: () => (import.meta.env.DEV ? import("/index.html?raw") : import("/dist/client/index.html?raw")),
           });
         `;
