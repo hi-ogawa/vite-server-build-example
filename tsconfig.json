@@ -7,7 +7,7 @@
     "module": "ESNext",
     "target": "ESNext",
     "lib": ["ESNext", "DOM"],
-    "types": ["vite/client", "@hiogawa/vite-glob-routes/types/virtual"],
+    "types": ["vite/client", "@hiogawa/vite-glob-routes/virtual"],
     "jsx": "react-jsx"
   }
 }

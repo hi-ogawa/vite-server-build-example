@@ -1,5 +1,3 @@
-// TODO: move it to root
-
 declare module "virtual:glob-page-routes/react-router" {
   const value: () => import("react-router").RouteObject[];
   export default value;
@@ -11,6 +9,6 @@ declare module "virtual:glob-api-routes/hattip" {
 }
 
 declare module "virtual:index-html-middleware/hattip" {
-  const value: import("../dist/index").__internalIndexHtmlMiddleware.IndexHtmlMiddleware;
+  const value: import("./dist/index").__internalIndexHtmlMiddleware.IndexHtmlMiddleware;
   export default value;
 }

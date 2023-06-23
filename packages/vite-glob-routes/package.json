@@ -11,8 +11,8 @@
       "require": "./dist/index.cjs",
       "types": "./dist/index.d.ts"
     },
-    "./types/virtual": {
-      "types": "./types/virtual.d.ts"
+    "./virtual": {
+      "types": "./virtual.d.ts"
     }
   },
   "files": [
